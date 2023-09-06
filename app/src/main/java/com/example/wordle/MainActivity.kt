@@ -3,11 +3,13 @@ package com.example.wordle
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import java.util.logging.Logger
 
 object FourLetterWordList {
     // List of most common 4 letter words from: https://7esl.com/4-letter-words/
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         var correctWord = FourLetterWordList.getRandomFourLetterWord()
 
+
         guessButton.setOnClickListener {
             if(guessCount <= 2) {
                 // gets text from user input
@@ -75,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 inputLine.setText("")
 
                 if (guess.length == 4) {
+                    Log.v("correctWord", correctWord)
                     guessTextViews[guessCount].text = guess.uppercase()
                     var result = checkGuess(guess, correctWord.uppercase())
                     checkTextViews[guessCount].text = result
@@ -83,7 +87,8 @@ class MainActivity : AppCompatActivity() {
                         // say they won
                         guessButton.isActivated = false
                         guessButton.setBackgroundColor(Color.GRAY)
-                        Toast.makeText(applicationContext, "YOU WIN!!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, "YOU WIN!!" , Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, correctWord, Toast.LENGTH_LONG).show()
 
                     }
 
